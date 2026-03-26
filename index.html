@@ -532,15 +532,15 @@ function renderRequest(req, index) {
             <div class="type-option ${req.type==='ui'?'selected ui-revision':''}" onclick="setType(${req.id},'ui')">
               <div class="radio-dot"></div>
               <div>
-                <div class="type-label">UI Revision Change</div>
-                <div class="type-desc">Visual or layout adjustment to an existing screen/component. Does not alter approved functionality or add new features/scope changes. Covered within the included revision rounds.</div>
+                <div class="type-label">Cosmetic UI Change</div>
+                <div class="type-desc"><strong>Visual adjustments</strong> to an existing screen/component. <strong>Does not alter approved functionality or add new features.</strong> Covered within the included UI revision rounds.</div>
               </div>
             </div>
             <div class="type-option ${req.type==='feature'?'selected new-feature':''}" onclick="setType(${req.id},'feature')">
               <div class="radio-dot"></div>
               <div>
-                <div class="type-label">Scope Change / New Feature</div>
-                <div class="type-desc">New functionality or modification to existing features beyond the original term sheet specification. Will be estimated and billed separately at the developer's hourly rate.</div>
+                <div class="type-label">Specification Change / New Feature</div>
+                <div class="type-desc"><strong>Modification to existing features</strong> beyond the original term sheet specification, or addition of <strong>new features</strong>. Will be estimated and billed separately at the developer's hourly rate.</div>
               </div>
             </div>
           </div>
