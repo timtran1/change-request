@@ -435,10 +435,10 @@
       <p class="subtitle">Submit change requests for the Fit Foodie App Development project.</p>
       <div class="contract-ref">
         <strong>Per contract terms:</strong><br>
-        ✦ 2 UI revision rounds included (visual/layout adjustments only — no scope changes).<br>
+        ✦ 2 UI revision rounds included (visual adjustments only — no specification changes).<br>
         ✦ Round 1 due within 5 business days of final delivery.<br>
         ✦ Round 2 due within 5 business days of revised build delivery.<br>
-        ✦ Scope changes &amp; new features beyond 2 rounds billed at developer's hourly rate.
+        ✦ Specification changes &amp; new features beyond 2 rounds billed at developer's hourly rate.
       </div>
       <p class="required-note">* Indicates required question</p>
     </div>
@@ -540,20 +540,20 @@ function renderRequest(req, index) {
               <div class="radio-dot"></div>
               <div>
                 <div class="type-label">Specification Change / New Feature</div>
-                <div class="type-desc"><strong>Modification to existing features</strong> beyond the original term sheet specification, or addition of <strong>new features</strong>. Will be estimated and billed separately at the developer's hourly rate.</div>
+                <div class="type-desc"><strong>Modification beyond the original term sheet specification</strong>, or addition of <strong>new features</strong>. Will be estimated and billed separately at the developer's hourly rate.</div>
               </div>
             </div>
           </div>
         </div>
 
         <div class="field">
-          <label>Short title <span class="req">*</span></label>
-          <input type="text" value="${escHTML(req.title)}" oninput="updateField(${req.id},'title',this.value)" placeholder="e.g. Change filter button color on Explore screen">
+          <label>Title <span class="req">*</span></label>
+          <input type="text" value="${escHTML(req.title)}" oninput="updateField(${req.id},'title',this.value)" >
         </div>
 
         <div class="field">
-          <label>Detailed description <span class="req">*</span></label>
-          <textarea oninput="updateField(${req.id},'description',this.value)" placeholder="Describe exactly what should change and how it should look/work after the change.">${escHTML(req.description)}</textarea>
+          <label>Description <span class="req">*</span></label>
+          <textarea oninput="updateField(${req.id},'description',this.value)">${escHTML(req.description)}</textarea>
         </div>
 
         <div class="field">
