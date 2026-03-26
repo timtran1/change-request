@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fit Foodie — Change Request Form</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #673AB7;
+    --purple-dark: #512DA8;
+    --purple-light: #EDE7F6;
+    --purple-mid: #D1C4E9;
+    --red: #D32F2F;
+    --red-light: #FFEBEE;
+    --amber: #F57F17;
+    --amber-light: #FFF8E1;
+    --green: #2E7D32;
+    --green-light: #E8F5E9;
+    --gray-50: #FAFAFA;
+    --gray-100: #F5F5F5;
+    --gray-200: #EEEEEE;
+    --gray-300: #E0E0E0;
+    --gray-400: #BDBDBD;
+    --gray-500: #9E9E9E;
+    --gray-700: #616161;
+    --gray-900: #212121;
+    --white: #FFFFFF;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.06);
+    --radius: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray-100);
+    color: var(--gray-900);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .form-container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Top banner bar */
+  .banner {
+    height: 10px;
+    background: var(--purple);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .card-body { padding: 28px 28px 24px; }
+
+  /* Header card */
+  .header-card .card-body { border-top: none; }
+  .header-card h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--gray-900);
+    margin-bottom: 6px;
+  }
+  .header-card .subtitle {
+    font-size: 18px;
+    color: var(--gray-700);
+    margin-bottom: 16px;
+  }
+  .header-card .contract-ref {
+    background: var(--purple-light);
+    border-left: 3px solid var(--purple);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    font-size: 16px;
+    color: var(--purple-dark);
+    line-height: 1.7;
+  }
+  .header-card .contract-ref strong { font-weight: 600; }
+
+  .required-note {
+    font-size: 15px;
+    color: var(--red);
+    margin-top: 14px;
+  }
+
+  /* Form elements */
+  label {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+  }
+  label .req { color: var(--red); margin-left: 2px; }
+
+  input[type="text"],
+  input[type="date"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: var(--gray-900);
+    border: none;
+    border-bottom: 1px solid var(--gray-300);
+    background: transparent;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-bottom: 2px solid var(--purple);
+    margin-bottom: -1px;
+  }
+  textarea { resize: vertical; min-height: 140px; }
+  select { cursor: pointer; }
+
+  .field { margin-bottom: 24px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-row { display: flex; gap: 20px; }
+  .field-row .field { flex: 1; }
+
+  /* Radio / Type selector */
+  .type-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .type-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .type-option:hover { border-color: var(--gray-400); }
+  .type-option.selected.ui-revision {
+    border-color: var(--purple);
+    background: var(--purple-light);
+  }
+  .type-option.selected.new-feature {
+    border-color: var(--amber);
+    background: var(--amber-light);
+  }
+
+  .radio-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--gray-400);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+    transition: all 0.15s;
+  }
+  .type-option.selected .radio-dot {
+    border-color: var(--purple);
+  }
+  .type-option.selected.new-feature .radio-dot {
+    border-color: var(--amber);
+  }
+  .radio-dot::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 0.15s;
+  }
+  .type-option.selected.ui-revision .radio-dot::after { background: var(--purple); }
+  .type-option.selected.new-feature .radio-dot::after { background: var(--amber); }
+
+  .type-label { font-weight: 600; font-size: 18px; }
+  .type-desc { font-size: 15px; color: var(--gray-700); margin-top: 2px; line-height: 1.5; }
+
+  /* Request card header */
+  .request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .request-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--gray-900);
+  }
+  .request-badge {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .badge-ui { background: var(--purple-light); color: var(--purple-dark); }
+  .badge-feature { background: var(--amber-light); color: var(--amber); }
+  .badge-unset { background: var(--gray-200); color: var(--gray-500); }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    color: var(--gray-400);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+  .remove-btn:hover { color: var(--red); background: var(--red-light); }
+
+  /* Photo upload */
+  .photo-upload-area {
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--gray-500);
+    font-size: 16px;
+  }
+  .photo-upload-area:hover {
+    border-color: var(--purple);
+    background: var(--purple-light);
+    color: var(--purple);
+  }
+  .photo-upload-area input[type="file"] { display: none; }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .photo-thumb {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+  }
+  .photo-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-thumb .photo-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .photo-thumb:hover .photo-remove { opacity: 1; }
+
+  @media print {
+    .photo-thumb .photo-remove { display: none; }
+  }
+
+  /* Add button */
+  .add-request-btn {
+    width: 100%;
+    padding: 16px;
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--purple);
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .add-request-btn:hover {
+    border-color: var(--purple);
+    background: var(--purple-light);
+  }
+  .add-request-btn .plus {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  /* Summary card */
+  .summary-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 4px;
+  }
+  .summary-stat {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    border-radius: var(--radius);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+  }
+  .summary-stat .num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    display: block;
+  }
+  .summary-stat .lbl {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .stat-total .num { color: var(--gray-900); }
+  .stat-ui .num { color: var(--purple); }
+  .stat-feature .num { color: var(--amber); }
+
+  .note-box {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--amber-light);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--amber);
+    line-height: 1.6;
+  }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--purple);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-top: 16px;
+  }
+  .submit-btn:hover { background: var(--purple-dark); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--gray-900);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: transform 0.3s cubic-bezier(0.2,1,0.3,1);
+    z-index: 100;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .disclaimer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 24px;
+    line-height: 1.6;
+  }
+
+  @media print {
+    body { padding: 0; background: white; }
+    .submit-btn, .add-request-btn, .toast, .photo-upload-area, .remove-btn { display: none !important; }
+    .card { break-inside: avoid; box-shadow: none; border: none; }
+    .photo-grid { grid-template-columns: 1fr; break-inside: avoid; }
+    .photo-thumb { aspect-ratio: auto; border: none; border-radius: 0; }
+    .photo-thumb img { width: 100%; height: auto; max-height: none; }
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 12px 8px 80px; }
+    .card-body { padding: 20px 18px; }
+    .field-row { flex-direction: column; gap: 0; }
+
+    .summary-bar { flex-direction: column; gap: 8px; }
+    .header-card h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="form-container" id="app">
+  <!-- Header -->
+  <div class="card header-card">
+    <div class="banner"></div>
+    <div class="card-body">
+      <h1>Fit Foodie — Change Request</h1>
+      <p class="subtitle">Submit change requests for the Fit Foodie App Development project.</p>
+      <div class="contract-ref">
+        <strong>Per contract terms:</strong><br>
+        ✦ 2 UI revision rounds included (visual/layout adjustments only — no scope changes).<br>
+        ✦ Round 1 due within 5 business days of final delivery.<br>
+        ✦ Round 2 due within 5 business days of revised build delivery.<br>
+        ✦ Scope changes &amp; new features beyond 2 rounds billed at developer's hourly rate.
+      </div>
+      <p class="required-note">* Indicates required question</p>
+    </div>
+  </div>
+
+  <!-- Client Info -->
+  <div class="card">
+    <div class="card-body">
+      <div class="field-row">
+        <div class="field">
+          <label>Your name <span class="req">*</span></label>
+          <input type="text" id="clientName" placeholder="Your answer">
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="submitDate">
+        </div>
+      </div>
+      <div class="field">
+        <label>Revision round <span class="req">*</span></label>
+        <select id="revisionRound">
+          <option value="" disabled selected>Choose</option>
+          <option value="round1">Round 1 (included)</option>
+          <option value="round2">Round 2 (included)</option>
+          <option value="additional">Additional (billed at hourly rate)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Requests container -->
+  <div id="requests-container"></div>
+
+  <!-- Add button -->
+  <button class="add-request-btn" onclick="addRequest()">
+    <span class="plus">+</span> Add another change request
+  </button>
+
+  <!-- Summary -->
+  <div class="card" id="summary-card">
+    <div class="card-body">
+      <div class="summary-bar">
+        <div class="summary-stat stat-total"><span class="num" id="totalCount">1</span><span class="lbl">Total Requests</span></div>
+        <div class="summary-stat stat-ui"><span class="num" id="uiCount">0</span><span class="lbl">UI Revisions</span></div>
+        <div class="summary-stat stat-feature"><span class="num" id="featureCount">0</span><span class="lbl">Scope Changes</span></div>
+      </div>
+      <div class="note-box" id="billing-note" style="display:none;">
+        ⚠ This submission includes <strong>scope change requests</strong> which are outside the original scope of work and will be estimated and billed separately at the developer's standard hourly rate.
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Save</button>
+    </div>
+  </div>
+
+  <p class="disclaimer">This form does not constitute approval. All requests subject to developer review and estimation.</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let requests = [];
+let nextId = 0;
+
+function createRequestData() {
+  return {
+    id: nextId++,
+    type: '',
+    title: '',
+    description: '',
+    photos: []
+  };
+}
+
+function renderRequest(req, index) {
+  const badgeClass = req.type === 'ui' ? 'badge-ui' : req.type === 'feature' ? 'badge-feature' : 'badge-unset';
+  const badgeText = req.type === 'ui' ? 'UI Revision' : req.type === 'feature' ? 'Scope Change' : 'Unclassified';
+
+  return `
+    <div class="card" data-id="${req.id}">
+      <div class="card-body">
+        <div class="request-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="request-num">Request #${index + 1}</span>
+            <span class="request-badge ${badgeClass}">${badgeText}</span>
+          </div>
+          ${requests.length > 1 ? `<button class="remove-btn" onclick="removeRequest(${req.id})" title="Remove">✕</button>` : ''}
+        </div>
+
+        <div class="field">
+          <label>Change type <span class="req">*</span></label>
+          <div class="type-selector">
+            <div class="type-option ${req.type==='ui'?'selected ui-revision':''}" onclick="setType(${req.id},'ui')">
+              <div class="radio-dot"></div>
+              <div>
+                <div class="type-label">UI Revision Change</div>
+                <div class="type-desc">Visual or layout adjustment to an existing screen/component. Does not alter approved functionality or add new features/scope changes. Covered within the included revision rounds.</div>
+              </div>
+            </div>
+            <div class="type-option ${req.type==='feature'?'selected new-feature':''}" onclick="setType(${req.id},'feature')">
+              <div class="radio-dot"></div>
+              <div>
+                <div class="type-label">Scope Change / New Feature</div>
+                <div class="type-desc">New functionality or modification to existing features beyond the original term sheet specification. Will be estimated and billed separately at the developer's hourly rate.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Short title <span class="req">*</span></label>
+          <input type="text" value="${escHTML(req.title)}" oninput="updateField(${req.id},'title',this.value)" placeholder="e.g. Change filter button color on Explore screen">
+        </div>
+
+        <div class="field">
+          <label>Detailed description <span class="req">*</span></label>
+          <textarea oninput="updateField(${req.id},'description',this.value)" placeholder="Describe exactly what should change and how it should look/work after the change.">${escHTML(req.description)}</textarea>
+        </div>
+
+        <div class="field">
+          <label>Reference images (optional)</label>
+          <div class="photo-upload-area" onclick="document.getElementById('photo-input-${req.id}').click()">
+            <input type="file" id="photo-input-${req.id}" accept="image/*" multiple onchange="addPhotos(${req.id}, this.files)">
+            + Click to upload photos
+          </div>
+          <div class="photo-grid" id="photo-grid-${req.id}">
+            ${req.photos.map((p, pi) => `
+              <div class="photo-thumb">
+                <img src="${p}">
+                <button class="photo-remove" onclick="removePhoto(${req.id}, ${pi})">✕</button>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  `;
+}
+
+function escHTML(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function renderAll() {
+  document.getElementById('requests-container').innerHTML = requests.map((r, i) => renderRequest(r, i)).join('');
+  updateSummary();
+}
+
+function addRequest() {
+  requests.push(createRequestData());
+  renderAll();
+  // Scroll to new card
+  const cards = document.querySelectorAll('#requests-container .card');
+  if (cards.length) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function removeRequest(id) {
+  requests = requests.filter(r => r.id !== id);
+  renderAll();
+}
+
+function setType(id, type) {
+  const r = requests.find(r => r.id === id);
+  if (r) { r.type = type; renderAll(); }
+}
+
+
+function updateField(id, field, val) {
+  const r = requests.find(r => r.id === id);
+  if (r) { r[field] = val; /* no re-render to keep focus */ }
+}
+
+function addPhotos(id, files) {
+  const r = requests.find(r => r.id === id);
+  if (!r) return;
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      r.photos.push(e.target.result);
+      renderAll();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function removePhoto(id, photoIndex) {
+  const r = requests.find(r => r.id === id);
+  if (!r) return;
+  r.photos.splice(photoIndex, 1);
+  renderAll();
+}
+
+
+function updateSummary() {
+  const total = requests.length;
+  const ui = requests.filter(r => r.type === 'ui').length;
+  const feat = requests.filter(r => r.type === 'feature').length;
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('uiCount').textContent = ui;
+  document.getElementById('featureCount').textContent = feat;
+  document.getElementById('billing-note').style.display = feat > 0 ? 'block' : 'none';
+}
+
+function getFormData() {
+  return {
+    client: {
+      name: document.getElementById('clientName').value,
+      date: document.getElementById('submitDate').value,
+      revisionRound: document.getElementById('revisionRound').value
+    },
+    requests: requests.map((r, i) => ({
+      number: i + 1,
+      type: r.type === 'ui' ? 'UI Revision Change' : r.type === 'feature' ? 'Scope Change / New Feature' : 'UNCLASSIFIED',
+      title: r.title,
+      description: r.description
+    }))
+  };
+}
+
+function validate() {
+  const d = getFormData();
+  if (!d.client.name || !d.client.date || !d.client.revisionRound) {
+    showToast('Please fill in all required client fields.');
+    return false;
+  }
+  for (let r of d.requests) {
+    if (r.type === 'UNCLASSIFIED') { showToast(`Request #${r.number}: Please select a change type (UI Revision or Scope Change).`); return false; }
+    if (!r.title) { showToast(`Request #${r.number}: Please provide a short title.`); return false; }
+    if (!r.description) { showToast(`Request #${r.number}: Please provide a description.`); return false; }
+  }
+  return true;
+}
+
+function submitForm() {
+  if (!validate()) return;
+  window.print();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// Init
+document.getElementById('submitDate').valueAsDate = new Date();
+addRequest();
+</script>
+</body>
+</html>
